@@ -21,10 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('project', function () {
 
+Route::get('projects', function () {
+    $projects = Project::with('type', 'technologies')->OrderbyDesc('id')->paginate();
     return response()->json([
         'status' => 'success',
-        'result' => Project::all(),
+        'result' => $projects
     ]);
 });
